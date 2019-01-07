@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Game extends Canvas implements Runnable{
 
@@ -14,6 +15,22 @@ public class Game extends Canvas implements Runnable{
     private Thread thread;
 
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+    private BufferedImage spriteSheet = null;
+
+    //temp
+    private BufferedImage player;
+
+    public void init(){
+        BufferedImageLoader loader = new BufferedImageLoader();
+        try{
+            spriteSheet = loader.loadImage("/sprite_sheet.png");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        SpriteSheet ss = new SpriteSheet(spriteSheet);
+        player = ss.grabeImage(1, 1, 32, 32);
+    }
 
     private synchronized void start(){
         if(running)
@@ -39,6 +56,7 @@ public class Game extends Canvas implements Runnable{
 
     @Override
     public void run() {
+        init();
         long lastTime = System.nanoTime();
         final double amountOfTicks = 60.0;
         double ns = 1000000000 / amountOfTicks;
@@ -80,6 +98,7 @@ public class Game extends Canvas implements Runnable{
         }
         Graphics g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+        g.drawImage(player, 100, 100, this);
         g.dispose();
         bs.show();
     }
