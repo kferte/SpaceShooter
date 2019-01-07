@@ -17,8 +17,7 @@ public class Game extends Canvas implements Runnable{
     private BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
     private BufferedImage spriteSheet = null;
 
-    //temp
-    private BufferedImage player;
+    private Player p;
 
     public void init(){
         BufferedImageLoader loader = new BufferedImageLoader();
@@ -27,9 +26,7 @@ public class Game extends Canvas implements Runnable{
         }catch (IOException e){
             e.printStackTrace();
         }
-
-        SpriteSheet ss = new SpriteSheet(spriteSheet);
-        player = ss.grabeImage(1, 1, 32, 32);
+        p = new Player(200, 200, this);
     }
 
     private synchronized void start(){
@@ -88,6 +85,7 @@ public class Game extends Canvas implements Runnable{
     }
 
     private void tick() {
+        p.tick();
     }
 
     private void render() {
@@ -98,9 +96,15 @@ public class Game extends Canvas implements Runnable{
         }
         Graphics g = bs.getDrawGraphics();
         g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
-        g.drawImage(player, 100, 100, this);
+
+        p.render(g);
+
         g.dispose();
         bs.show();
+    }
+
+    public BufferedImage getSpriteSheet(){
+        return spriteSheet;
     }
 
     public static void main(String[] args) {
