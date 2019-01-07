@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,12 +21,14 @@ public class Game extends Canvas implements Runnable{
     private Player p;
 
     public void init(){
+        requestFocus();
         BufferedImageLoader loader = new BufferedImageLoader();
         try{
             spriteSheet = loader.loadImage("/sprite_sheet.png");
         }catch (IOException e){
             e.printStackTrace();
         }
+        addKeyListener(new KeyInput(this));
         p = new Player(200, 200, this);
     }
 
@@ -105,6 +108,34 @@ public class Game extends Canvas implements Runnable{
 
     public BufferedImage getSpriteSheet(){
         return spriteSheet;
+    }
+
+    public void keyPressed(KeyEvent e){
+        int key = e.getKeyCode();
+
+        if(key == KeyEvent.VK_RIGHT){
+            p.setVelX(5);
+        } else if(key == KeyEvent.VK_LEFT){
+            p.setVelX(-5);
+        } else if(key == KeyEvent.VK_UP){
+            p.setVelY(-5);
+        } else if(key == KeyEvent.VK_DOWN){
+            p.setVelY(5);
+        }
+    }
+
+    public void keyReleased(KeyEvent e){
+        int key = e.getKeyCode();
+
+        if(key == KeyEvent.VK_RIGHT){
+            p.setVelX(0);
+        } else if(key == KeyEvent.VK_LEFT){
+            p.setVelX(0);
+        } else if(key == KeyEvent.VK_UP){
+            p.setVelY(0);
+        } else if(key == KeyEvent.VK_DOWN){
+            p.setVelY(0);
+        }
     }
 
     public static void main(String[] args) {
