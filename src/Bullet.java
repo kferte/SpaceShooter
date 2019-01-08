@@ -6,14 +6,12 @@ public class Bullet {
     private double x;
     private double y;
 
-    BufferedImage image;
+    private Textures tex;
 
-    public Bullet(double x, double y, Game game){
+    public Bullet(double x, double y, Textures tex){
         this.x = x;
         this.y = y;
-
-        SpriteSheet ss = new SpriteSheet(game.getSpriteSheet());
-        image = ss.grabeImage(1, 0, 32, 32);
+        this.tex = tex;
     }
 
     public void tick(){
@@ -21,7 +19,7 @@ public class Bullet {
     }
 
     public void render(Graphics g){
-        g.drawImage(image, (int) x, (int) y, null);
+        g.drawImage(tex.missile, (int) x, (int) y, null);
     }
 
     public double getX() {

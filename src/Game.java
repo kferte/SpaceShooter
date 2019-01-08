@@ -23,6 +23,7 @@ public class Game extends Canvas implements Runnable{
 
     private Player p;
     private Controller c;
+    private Textures tex;
 
     public void init(){
         requestFocus();
@@ -34,8 +35,9 @@ public class Game extends Canvas implements Runnable{
             e.printStackTrace();
         }
         addKeyListener(new KeyInput(this));
-        p = new Player(200, 200, this);
-        c = new Controller(this);
+        tex = new Textures(this);
+        p = new Player(200, 200, tex);
+        c = new Controller(this, tex);
     }
 
     private synchronized void start(){
@@ -132,7 +134,7 @@ public class Game extends Canvas implements Runnable{
             p.setVelY(5);
         } else if(key == KeyEvent.VK_SPACE && !isShooting){
             isShooting = true;
-            c.addBullet(new Bullet(p.getX(), p.getY(), this));
+            c.addBullet(new Bullet(p.getX(), p.getY(), tex));
         }
     }
 
