@@ -1,9 +1,13 @@
+import entities.EntityFriendly;
+import entities.EntityEnemy;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class Game extends Canvas implements Runnable{
 
@@ -28,6 +32,9 @@ public class Game extends Canvas implements Runnable{
     private Controller c;
     private Textures tex;
 
+    public LinkedList<EntityFriendly> friends;
+    public LinkedList<EntityEnemy> enemies;
+
     public void init(){
         requestFocus();
         BufferedImageLoader loader = new BufferedImageLoader();
@@ -42,6 +49,8 @@ public class Game extends Canvas implements Runnable{
         p = new Player(200, 200, tex);
         c = new Controller(tex);
 
+        friends = c.getEntityFriendly();
+        enemies = c.getEntityEnemy();
         c.createEnemy(enemyCount);
     }
 
@@ -155,7 +164,7 @@ public class Game extends Canvas implements Runnable{
             p.setVelY(5);
         } else if(key == KeyEvent.VK_SPACE && !isShooting){
             isShooting = true;
-            c.addEntity(new Bullet(p.getX(), p.getY(), tex));
+            c.addEntity(new Bullet(p.getX(), p.getY(), tex, this));
         }
     }
 

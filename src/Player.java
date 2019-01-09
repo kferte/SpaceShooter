@@ -1,17 +1,15 @@
+import entities.EntityFriendly;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-public class Player {
+public class Player extends GameObject implements EntityFriendly {
 
-    private double x;
-    private double y;
     private double velX = 0;
     private double velY = 0;
     private Textures tex;
 
     public Player(double x, double y, Textures tex){
-        this.x = x;
-        this.y = y;
+        super(x, y);
         this.tex = tex;
     }
 
@@ -31,6 +29,10 @@ public class Player {
 
     public void render(Graphics g){
         g.drawImage(tex.player, (int)x, (int)y, null);
+    }
+
+    public Rectangle getBounds(){
+        return new Rectangle((int) x, (int) y, 32, 32);
     }
 
     public double getX(){

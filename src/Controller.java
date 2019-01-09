@@ -1,12 +1,17 @@
+import entities.EntityFriendly;
+import entities.EntityEnemy;
+
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.Random;
 
 public class Controller {
 
-    private LinkedList<Entity> e = new LinkedList<Entity>();
+    private LinkedList<EntityFriendly> friends = new LinkedList<EntityFriendly>();
+    private LinkedList<EntityEnemy> enemies = new LinkedList<EntityEnemy>();
 
-    Entity entity;
+    EntityFriendly entityFriendly;
+    EntityEnemy entityEnemy;
     private Textures tex;
     Random rnd = new Random();
 
@@ -21,24 +26,52 @@ public class Controller {
     }
 
     public void tick(){
-        for(int i = 0; i < e.size(); i++){
-            entity = e.get(i);
-            entity.tick();
+        //A Class
+        for(int i = 0; i < friends.size(); i++){
+            entityFriendly = friends.get(i);
+            entityFriendly.tick();
+        }
+        //B Class
+        for(int i = 0; i < enemies.size(); i++){
+            entityEnemy = enemies.get(i);
+            entityEnemy.tick();
         }
     }
 
     public void render(Graphics g){
-        for(int i = 0; i < e.size(); i++){
-            entity = e.get(i);
-            entity.render(g);
+        //A Class
+        for(int i = 0; i < friends.size(); i++){
+            entityFriendly = friends.get(i);
+            entityFriendly.render(g);
+        }
+        //B Class
+        for(int i = 0; i < enemies.size(); i++){
+            entityEnemy = enemies.get(i);
+            entityEnemy.render(g);
         }
     }
 
-    public void addEntity(Entity temp){
-        e.add(temp);
+    public void addEntity(EntityFriendly temp){
+        friends.add(temp);
     }
 
-    public void removeEntity(Entity temp){
-        e.remove(temp);
+    public void removeEntity(EntityFriendly temp){
+        friends.remove(temp);
+    }
+
+    public void addEntity(EntityEnemy temp){
+        enemies.add(temp);
+    }
+
+    public void removeEntity(EntityEnemy temp){
+        enemies.remove(temp);
+    }
+
+    public LinkedList<EntityFriendly> getEntityFriendly(){
+        return friends;
+    }
+
+    public LinkedList<EntityEnemy> getEntityEnemy(){
+        return enemies;
     }
 }
