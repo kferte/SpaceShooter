@@ -37,7 +37,7 @@ public class Game extends Canvas implements Runnable{
         addKeyListener(new KeyInput(this));
         tex = new Textures(this);
         p = new Player(200, 200, tex);
-        c = new Controller(this, tex);
+        c = new Controller(tex);
     }
 
     private synchronized void start(){
@@ -134,7 +134,7 @@ public class Game extends Canvas implements Runnable{
             p.setVelY(5);
         } else if(key == KeyEvent.VK_SPACE && !isShooting){
             isShooting = true;
-            c.addBullet(new Bullet(p.getX(), p.getY(), tex));
+            c.addEntity(new Bullet(p.getX(), p.getY(), tex));
         }
     }
 

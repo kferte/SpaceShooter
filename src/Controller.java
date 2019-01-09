@@ -4,63 +4,37 @@ import java.util.Random;
 
 public class Controller {
 
-    private LinkedList<Bullet> b = new LinkedList<Bullet>();
-    private LinkedList<Enemy> e = new LinkedList<Enemy>();
+    private LinkedList<Entity> e = new LinkedList<Entity>();
 
+    Entity entity;
+    private Textures tex;
     Random rnd = new Random();
 
-    Bullet TempBullet;
-    Enemy TempEnemy;
-
-    Game game;
-    Textures tex;
-
-    public Controller(Game game, Textures tex){
-        this.game = game;
+    public Controller(Textures tex){
         this.tex = tex;
-        addEnemy(new Enemy(rnd.nextInt(Game.WIDTH * Game.SCALE), 0, tex));
+        for(int i = 0; i < 20; i++)
+            addEntity(new Enemy(rnd.nextInt(960), 10, tex));
     }
 
     public void tick(){
-        for(int i = 0; i < b.size(); i++){
-            TempBullet = b.get(i);
-            if(TempBullet.getY() < 0)
-                removeBullet(TempBullet);
-            TempBullet.tick();
-        }
-
         for(int i = 0; i < e.size(); i++){
-            TempEnemy = e.get(i);
-            if(TempEnemy.getY() > (Game.HEIGHT * Game.SCALE))
-                TempEnemy.setY(0);
-            TempEnemy.tick();
+            entity = e.get(i);
+            entity.tick();
         }
     }
 
     public void render(Graphics g){
-        for(int i = 0; i < b.size(); i++){
-            TempBullet = b.get(i);
-            TempBullet.render(g);
-        }
         for(int i = 0; i < e.size(); i++){
-            TempEnemy = e.get(i);
-            TempEnemy.render(g);
+            entity = e.get(i);
+            entity.render(g);
         }
     }
 
-    public void addBullet(Bullet block){
-        b.add(block);
+    public void addEntity(Entity temp){
+        e.add(temp);
     }
 
-    public void removeBullet(Bullet block){
-        b.remove(block);
-    }
-
-    public void addEnemy(Enemy block){
-        e.add(block);
-    }
-
-    public void removeEnemy(Enemy block){
-        e.remove(block);
+    public void removeEntity(Entity temp){
+        e.remove(temp);
     }
 }

@@ -1,7 +1,6 @@
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-public class Bullet {
+public class Bullet implements Entity{
 
     private double x;
     private double y;
