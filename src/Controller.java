@@ -13,15 +13,17 @@ public class Controller {
     EntityFriendly entityFriendly;
     EntityEnemy entityEnemy;
     private Textures tex;
+    private Game game;
     Random rnd = new Random();
 
-    public Controller(Textures tex){
+    public Controller(Textures tex, Game game){
         this.tex = tex;
+        this.game = game;
     }
 
     public void createEnemy(int enemyCount){
         for(int i = 0; i < enemyCount; i++){
-            addEntity(new Enemy(rnd.nextInt(960), -10, tex));
+            addEntity(new Enemy(rnd.nextInt(960), -10, tex, this, game));
         }
     }
 

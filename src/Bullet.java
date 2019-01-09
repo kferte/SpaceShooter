@@ -15,9 +15,6 @@ public class Bullet extends GameObject implements EntityFriendly {
 
     public void tick(){
         y -= 10;
-        if(Physics.Collision(this, game.enemies)){
-            System.out.println("Collision detected");
-        }
     }
 
     public void render(Graphics g){

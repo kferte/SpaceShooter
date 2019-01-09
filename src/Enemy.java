@@ -6,13 +6,17 @@ import java.util.Random;
 public class Enemy extends GameObject implements EntityEnemy {
 
     private Textures tex;
+    private Game game;
+    private Controller c;
     private Random rnd = new Random();
 
     private int speed = rnd.nextInt(3) + 1;
 
-    public Enemy(double x, double y, Textures tex){
+    public Enemy(double x, double y, Textures tex, Controller c, Game game){
         super(x, y);
         this.tex = tex;
+        this.c = c;
+        this.game = game;
     }
 
     public void tick(){
@@ -20,6 +24,11 @@ public class Enemy extends GameObject implements EntityEnemy {
         if(y > Game.HEIGHT * Game.SCALE) {
             x = rnd.nextInt(960);
             y = -10;
+        }
+
+        if(Physics.Collision(this, game.friends)){
+            c.removeEntity(this);
+            game.setEnemyKilled(game.getEnemyKilled() + 1);
         }
     }
 

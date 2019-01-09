@@ -13,4 +13,13 @@ public class Physics {
 
         return false;
     }
+
+    public static boolean Collision(EntityEnemy entityEnemy, LinkedList<EntityFriendly> entityFriend){
+        for(int i = 0; i < entityFriend.size(); i++){
+            if(entityEnemy.getBounds().intersects(entityFriend.get(i).getBounds()))
+                return true;
+        }
+
+        return false;
+    }
 }
