@@ -21,6 +21,9 @@ public class Game extends Canvas implements Runnable{
 
     private boolean isShooting = false;
 
+    private int enemyCount = 5;
+    private int enemyKilled = 0;
+
     private Player p;
     private Controller c;
     private Textures tex;
@@ -38,6 +41,8 @@ public class Game extends Canvas implements Runnable{
         tex = new Textures(this);
         p = new Player(200, 200, tex);
         c = new Controller(tex);
+
+        c.createEnemy(enemyCount);
     }
 
     private synchronized void start(){
@@ -119,6 +124,22 @@ public class Game extends Canvas implements Runnable{
 
     public BufferedImage getSpriteSheet(){
         return spriteSheet;
+    }
+
+    public int getEnemyCount() {
+        return enemyCount;
+    }
+
+    public void setEnemyCount(int enemyCount) {
+        this.enemyCount = enemyCount;
+    }
+
+    public int getEnemyKilled() {
+        return enemyKilled;
+    }
+
+    public void setEnemyKilled(int enemyKilled) {
+        this.enemyKilled = enemyKilled;
     }
 
     public void keyPressed(KeyEvent e){

@@ -12,8 +12,12 @@ public class Controller {
 
     public Controller(Textures tex){
         this.tex = tex;
-        for(int i = 0; i < 20; i++)
-            addEntity(new Enemy(rnd.nextInt(960), 10, tex));
+    }
+
+    public void createEnemy(int enemyCount){
+        for(int i = 0; i < enemyCount; i++){
+            addEntity(new Enemy(rnd.nextInt(960), -10, tex));
+        }
     }
 
     public void tick(){

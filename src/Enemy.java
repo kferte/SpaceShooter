@@ -1,9 +1,13 @@
 import java.awt.*;
+import java.util.Random;
 
 public class Enemy implements Entity{
 
     private double x, y;
     private Textures tex;
+    private Random rnd = new Random();
+
+    private int speed = rnd.nextInt(3) + 1;
 
     public Enemy(double x, double y, Textures tex){
         this.x = x;
@@ -12,7 +16,11 @@ public class Enemy implements Entity{
     }
 
     public void tick(){
-        y += 1;
+        y += speed;
+        if(y > Game.HEIGHT * Game.SCALE) {
+            x = rnd.nextInt(960);
+            y = -10;
+        }
     }
 
     public void render(Graphics g){
