@@ -11,7 +11,7 @@ public class Player extends GameObject implements EntityFriendly {
     private Game game;
     private Controller c;
 
-    public Player(double x, double y, Textures tex, Game game, Controller c){
+    Player(double x, double y, Textures tex, Game game, Controller c){
         super(x, y);
         this.tex = tex;
         this.game = game;
@@ -36,7 +36,7 @@ public class Player extends GameObject implements EntityFriendly {
             if(Physics.Collision(this, tempEnt)){
                 c.removeEntity(tempEnt);
                 game.setEnemyKilled(game.getEnemyKilled() + 1);
-                game.health -= 10;
+                Game.health -= 10;
             }
         }
     }
@@ -57,19 +57,19 @@ public class Player extends GameObject implements EntityFriendly {
         return y;
     }
 
-    public void setX(double x){
+    void setX(double x){
         this.x = x;
     }
 
-    public void setY(double y){
+    void setY(double y){
         this.y = y;
     }
 
-    public void setVelX(double velX){
+    void setVelX(double velX){
         this.velX = velX;
     }
 
-    public void setVelY(double velY){
+    void setVelY(double velY){
         this.velY = velY;
     }
 }

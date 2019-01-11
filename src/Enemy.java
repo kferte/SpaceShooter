@@ -13,7 +13,7 @@ public class Enemy extends GameObject implements EntityEnemy {
 
     private int speed = rnd.nextInt(3) + 1;
 
-    public Enemy(double x, double y, Textures tex, Controller c, Game game){
+    Enemy(double x, double y, Textures tex, Controller c, Game game){
         super(x, y);
         this.tex = tex;
         this.c = c;
@@ -24,7 +24,7 @@ public class Enemy extends GameObject implements EntityEnemy {
         y += speed;
         if(y > Game.HEIGHT * Game.SCALE) {
             x = rnd.nextInt(960);
-            game.health -= 5;
+            Game.health -= 5;
             y = -10;
         }
 
@@ -44,18 +44,5 @@ public class Enemy extends GameObject implements EntityEnemy {
 
     public Rectangle getBounds(){
         return new Rectangle((int) x, (int) y, 32, 32);
-    }
-
-    @Override
-    public double getX() {
-        return x;
-    }
-
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
     }
 }

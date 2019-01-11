@@ -3,9 +3,9 @@ import java.awt.event.KeyEvent;
 
 public class KeyInput extends KeyAdapter {
 
-    Game game;
+    private Game game;
 
-    public KeyInput(Game game){
+    KeyInput(Game game){
         this.game = game;
     }
 

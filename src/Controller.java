@@ -5,75 +5,71 @@ import java.awt.*;
 import java.util.LinkedList;
 import java.util.Random;
 
-public class Controller {
+class Controller {
 
-    private LinkedList<EntityFriendly> friends = new LinkedList<EntityFriendly>();
-    private LinkedList<EntityEnemy> enemies = new LinkedList<EntityEnemy>();
+    private LinkedList<EntityFriendly> friends = new LinkedList<>();
+    private LinkedList<EntityEnemy> enemies = new LinkedList<>();
 
-    EntityFriendly entityFriendly;
-    EntityEnemy entityEnemy;
+    private EntityFriendly entityFriendly;
+    private EntityEnemy entityEnemy;
     private Textures tex;
     private Game game;
-    Random rnd = new Random();
+    private Random rnd = new Random();
 
-    public Controller(Textures tex, Game game){
+    Controller(Textures tex, Game game){
         this.tex = tex;
         this.game = game;
     }
 
-    public void createEnemy(int enemyCount){
+    void createEnemy(int enemyCount){
         for(int i = 0; i < enemyCount; i++){
             addEntity(new Enemy(rnd.nextInt(960), -10, tex, this, game));
         }
     }
 
-    public void tick(){
-        //A Class
-        for(int i = 0; i < friends.size(); i++){
-            entityFriendly = friends.get(i);
+    void tick(){
+        for (EntityFriendly friend : friends) {
+            entityFriendly = friend;
             entityFriendly.tick();
         }
-        //B Class
-        for(int i = 0; i < enemies.size(); i++){
-            entityEnemy = enemies.get(i);
+        for (EntityEnemy enemy : enemies) {
+            entityEnemy = enemy;
             entityEnemy.tick();
         }
     }
 
-    public void render(Graphics g){
-        //A Class
-        for(int i = 0; i < friends.size(); i++){
-            entityFriendly = friends.get(i);
+    void render(Graphics g){
+        for (EntityFriendly friend : friends) {
+            entityFriendly = friend;
             entityFriendly.render(g);
         }
-        //B Class
-        for(int i = 0; i < enemies.size(); i++){
-            entityEnemy = enemies.get(i);
+        for (EntityEnemy enemy : enemies) {
+            entityEnemy = enemy;
             entityEnemy.render(g);
         }
     }
 
-    public void addEntity(EntityFriendly temp){
+    void addEntity(EntityFriendly temp){
         friends.add(temp);
     }
 
-    public void removeEntity(EntityFriendly temp){
+    void removeEntity(EntityFriendly temp){
         friends.remove(temp);
     }
 
-    public void addEntity(EntityEnemy temp){
+    private void addEntity(EntityEnemy temp){
         enemies.add(temp);
     }
 
-    public void removeEntity(EntityEnemy temp){
+    void removeEntity(EntityEnemy temp){
         enemies.remove(temp);
     }
 
-    public LinkedList<EntityFriendly> getEntityFriendly(){
+    LinkedList<EntityFriendly> getEntityFriendly(){
         return friends;
     }
 
-    public LinkedList<EntityEnemy> getEntityEnemy(){
+    LinkedList<EntityEnemy> getEntityEnemy(){
         return enemies;
     }
 }

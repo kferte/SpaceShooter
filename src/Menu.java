@@ -1,12 +1,12 @@
 import java.awt.*;
 
-public class Menu {
+class Menu {
 
-    public Rectangle playBtn = new Rectangle(440, 300, 100, 50);
-    public Rectangle helpBtn = new Rectangle(440, 400, 100, 50);
-    public Rectangle quitBtn = new Rectangle(440, 500, 100, 50);
+    private Rectangle playBtn = new Rectangle(440, 300, 100, 50);
+    private Rectangle helpBtn = new Rectangle(440, 400, 100, 50);
+    private Rectangle quitBtn = new Rectangle(440, 500, 100, 50);
 
-    public void render(Graphics g){
+    void render(Graphics g){
         Graphics2D g2d = (Graphics2D) g;
         Font font = new Font("arial", Font.BOLD, 50);
         g.setFont(font);

@@ -1,11 +1,11 @@
 import java.awt.image.BufferedImage;
 
-public class Textures {
+class Textures {
 
-    public BufferedImage player, missile, enemy;
+    BufferedImage player, missile, enemy;
     private SpriteSheet ss;
 
-    public Textures(Game game){
+    Textures(Game game){
         ss = new SpriteSheet(game.getSpriteSheet());
 
         getTextures();

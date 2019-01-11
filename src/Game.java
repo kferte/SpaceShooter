@@ -11,10 +11,10 @@ import java.util.LinkedList;
 
 public class Game extends Canvas implements Runnable{
 
-    public static final int WIDTH = 480;
-    public static final int HEIGHT = WIDTH / 12 * 9;
-    public static final int SCALE = 2;
-    public final String TITLE = "Space Shooter";
+    private static final int WIDTH = 480;
+    static final int HEIGHT = WIDTH / 12 * 9;
+    static final int SCALE = 2;
+    private final String TITLE = "Space Shooter";
 
     private boolean running = false;
     private Thread thread;
@@ -33,18 +33,18 @@ public class Game extends Canvas implements Runnable{
     private Textures tex;
     private Menu menu;
 
-    public LinkedList<EntityFriendly> friends;
-    public LinkedList<EntityEnemy> enemies;
+    LinkedList<EntityFriendly> friends;
+    LinkedList<EntityEnemy> enemies;
 
-    public int health = 100;
+    static int health = 100;
 
     public enum STATE{
         MENU, GAME
-    };
+    }
 
-    public static STATE state = STATE.MENU;
+    static STATE state = STATE.MENU;
 
-    public void init(){
+    private void init(){
         requestFocus();
         BufferedImageLoader loader = new BufferedImageLoader();
         try{
@@ -57,7 +57,7 @@ public class Game extends Canvas implements Runnable{
         addMouseListener(new MouseInput());
         tex = new Textures(this);
         c = new Controller(tex, this);
-        p = new Player(200, 200, tex, this, c);
+        p = new Player(WIDTH - 16, 600, tex, this, c);
         menu = new Menu();
 
         friends = c.getEntityFriendly();
@@ -150,6 +150,14 @@ public class Game extends Canvas implements Runnable{
             g.fillRect(5, 5, 200, 20);
             g.setColor(Color.RED);
             g.fillRect(5, 5, health * 2, 20 );
+            if(health <= 0){
+                Font font = new Font("arial", Font.BOLD, 100);
+                g.setFont(font);
+                g.setColor(Color.WHITE);
+                g.drawString("GAME OVER!", 150, 400);
+                p.setX(1000000000);
+                p.setY(1000000000);
+            }
         }else if(state == STATE.MENU){
             menu.render(g);
         }
@@ -158,27 +166,19 @@ public class Game extends Canvas implements Runnable{
         bs.show();
     }
 
-    public BufferedImage getSpriteSheet(){
+    BufferedImage getSpriteSheet(){
         return spriteSheet;
     }
 
-    public int getEnemyCount() {
-        return enemyCount;
-    }
-
-    public void setEnemyCount(int enemyCount) {
-        this.enemyCount = enemyCount;
-    }
-
-    public int getEnemyKilled() {
+    int getEnemyKilled() {
         return enemyKilled;
     }
 
-    public void setEnemyKilled(int enemyKilled) {
+    void setEnemyKilled(int enemyKilled) {
         this.enemyKilled = enemyKilled;
     }
 
-    public void keyPressed(KeyEvent e){
+    void keyPressed(KeyEvent e){
         int key = e.getKeyCode();
 
         if(state == STATE.GAME) {
@@ -192,12 +192,12 @@ public class Game extends Canvas implements Runnable{
                 p.setVelY(5);
             } else if (key == KeyEvent.VK_SPACE && !isShooting) {
                 isShooting = true;
-                c.addEntity(new Bullet(p.getX(), p.getY(), tex, this));
+                c.addEntity(new Bullet(p.getX(), p.getY(), tex));
             }
         }
     }
 
-    public void keyReleased(KeyEvent e){
+    void keyReleased(KeyEvent e){
         int key = e.getKeyCode();
 
         if(key == KeyEvent.VK_RIGHT){
@@ -223,7 +223,7 @@ public class Game extends Canvas implements Runnable{
         JFrame frame = new JFrame(game.TITLE);
         frame.add(game);
         frame.pack();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

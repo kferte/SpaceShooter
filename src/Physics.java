@@ -1,21 +1,13 @@
 import entities.EntityFriendly;
 import entities.EntityEnemy;
 
-import java.util.LinkedList;
+class Physics {
 
-public class Physics {
-
-    public static boolean Collision(EntityFriendly entityFriendly, EntityEnemy entityEnemy){
-        if(entityFriendly.getBounds().intersects(entityEnemy.getBounds()))
-            return true;
-
-        return false;
+    static boolean Collision(EntityFriendly entityFriendly, EntityEnemy entityEnemy){
+        return entityFriendly.getBounds().intersects(entityEnemy.getBounds());
     }
 
-    public static boolean Collision(EntityEnemy entityEnemy, EntityFriendly entityFriend){
-        if(entityEnemy.getBounds().intersects(entityFriend.getBounds()))
-            return true;
-
-        return false;
+    static boolean Collision(EntityEnemy entityEnemy, EntityFriendly entityFriend){
+        return entityEnemy.getBounds().intersects(entityFriend.getBounds());
     }
 }

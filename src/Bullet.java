@@ -5,12 +5,10 @@ import java.awt.*;
 public class Bullet extends GameObject implements EntityFriendly {
 
     private Textures tex;
-    private Game game;
 
-    public Bullet(double x, double y, Textures tex, Game game){
+    Bullet(double x, double y, Textures tex){
         super(x, y);
         this.tex = tex;
-        this.game = game;
     }
 
     public void tick(){
