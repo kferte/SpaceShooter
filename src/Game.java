@@ -36,6 +36,8 @@ public class Game extends Canvas implements Runnable{
     public LinkedList<EntityFriendly> friends;
     public LinkedList<EntityEnemy> enemies;
 
+    public int health = 100;
+
     public enum STATE{
         MENU, GAME
     };
@@ -54,8 +56,8 @@ public class Game extends Canvas implements Runnable{
         addKeyListener(new KeyInput(this));
         addMouseListener(new MouseInput());
         tex = new Textures(this);
-        p = new Player(200, 200, tex);
         c = new Controller(tex, this);
+        p = new Player(200, 200, tex, this, c);
         menu = new Menu();
 
         friends = c.getEntityFriendly();
@@ -144,6 +146,10 @@ public class Game extends Canvas implements Runnable{
         if(state == STATE.GAME) {
             p.render(g);
             c.render(g);
+            g.setColor(Color.GRAY);
+            g.fillRect(5, 5, 200, 20);
+            g.setColor(Color.RED);
+            g.fillRect(5, 5, health * 2, 20 );
         }else if(state == STATE.MENU){
             menu.render(g);
         }

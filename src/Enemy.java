@@ -1,4 +1,5 @@
 import entities.EntityEnemy;
+import entities.EntityFriendly;
 
 import java.awt.*;
 import java.util.Random;
@@ -23,12 +24,17 @@ public class Enemy extends GameObject implements EntityEnemy {
         y += speed;
         if(y > Game.HEIGHT * Game.SCALE) {
             x = rnd.nextInt(960);
+            game.health -= 5;
             y = -10;
         }
 
-        if(Physics.Collision(this, game.friends)){
-            c.removeEntity(this);
-            game.setEnemyKilled(game.getEnemyKilled() + 1);
+        for(int i = 0; i < game.friends.size(); i++){
+            EntityFriendly tempEnt = game.friends.get(i);
+            if(Physics.Collision(this, tempEnt)){
+                c.removeEntity(tempEnt);
+                c.removeEntity(this);
+                game.setEnemyKilled(game.getEnemyKilled() + 1);
+            }
         }
     }
 
